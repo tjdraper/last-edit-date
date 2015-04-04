@@ -4,7 +4,7 @@ Get the last edit date of an entry or channel
 
 ## Documentation
 
-Documentation is available at https://buzzingpixel.com/ee-addons/last-edit-date
+Documentation is available at https://buzzingpixel.com/ee-add-ons/last-edit-date/documentation
 
 ## License
 
