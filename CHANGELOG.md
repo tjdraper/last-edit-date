@@ -1,5 +1,9 @@
-# 1.0.0
+# Version 1.0.0
 
-2015-03-07
+## Released 03-07-2015
 
-- Initial commit.
+This is the initial relase of Last Edit Date
+
+### Features
+
+ - Get the last edit date of a published entry
