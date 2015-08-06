@@ -1,9 +1,11 @@
-# Version 1.0.0
+# 1.1.0
 
-## Released 03-07-2015
+2015-08-06
 
-This is the initial relase of Last Edit Date
+- Added category_id parameter to the tag
 
-### Features
+# 1.0.0
 
- - Get the last edit date of a published entry
+2015-03-07
+
+- Get the last edit date of a published entry
