@@ -9,14 +9,6 @@
  * @copyright Copyright (c) 2015, Buzzing Pixel
  */
 
-$plugin_info = array (
-	'pi_name' => 'Last Edit Date',
-	'pi_version' => '1.1.0',
-	'pi_author' => 'TJ Draper',
-	'pi_author_url' => 'https://buzzingpixel.com',
-	'pi_description' => 'Get the last edit date of an entry or channel'
-);
-
 class Last_edit_date
 {
 	public function __construct()
@@ -29,8 +21,8 @@ class Last_edit_date
 		$format = ee()->TMPL->fetch_param('format');
 
 		// Start the query
-		ee()->db->select('UNIX_TIMESTAMP(CT.edit_date) AS edit_date, title')
-			->from('channel_titles CT')
+		ee()->db->select('CT.edit_date, CT.title')
+			->from('channel_titles AS CT')
 			->where_in('CT.status', $status)
 			->order_by('CT.edit_date DESC')
 			->limit(1);

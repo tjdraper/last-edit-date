@@ -1,4 +1,4 @@
-# Last Edit Date 1.0.0 for ExpressionEngine
+# Last Edit Date 2.0.0 for ExpressionEngine 3
 
 Get the last edit date of an entry or channel
 
