@@ -9,56 +9,51 @@
  * @copyright Copyright (c) 2015, Buzzing Pixel
  */
 
+use \BuzzingPixel\LastEditDate\Helper;
+use \BuzzingPixel\LastEditDate\Service;
+
 class Last_edit_date
 {
 	public function __construct()
 	{
 		// Get Params
-		$entryId = ee()->TMPL->fetch_param('entry_id');
-		$channelId = ee()->TMPL->fetch_param('channel_id');
-		$categoryId = ee()->TMPL->fetch_param('category_id');
-		$status = explode('|', ee()->TMPL->fetch_param('status', 'open'));
-		$format = ee()->TMPL->fetch_param('format');
+		$getParam = new Helper\GetParam(ee()->TMPL->tagparams);
 
-		// Start the query
-		ee()->db->select('CT.edit_date, CT.title')
-			->from('channel_titles AS CT')
-			->where_in('CT.status', $status)
-			->order_by('CT.edit_date DESC')
-			->limit(1);
+		$entryId = $getParam->getArray('entry_id');
+		$urlTitle = $getParam->getArray('url_title');
+		$channelId = $getParam->getArray('channel_id');
+		$channel = $getParam->getArray('channel');
+		$categoryId = $getParam->getArray('category_id');
+		$categoryUrlTitle = $getParam->getArray('category_url_title');
+		$categoryGroupId = $getParam->getArray('category_group_id');
+		$notStatus = $getParam->getArray('not_status');
+		$status = $getParam->getArray('status', $notStatus ? array() : 'open');
+		$format = $getParam->get('format');
+		$showFutureEntries = $getParam->truthy('show_future_entries');
+		$showExpiredEntries = $getParam->truthy('show_expired_entries');
 
-		// If there’s an entry id, specify that
-		if ($entryId) {
-			$entryId = explode('|', $entryId);
+		// Get entry
+		$getEntry = new Service\GetEntry(compact(
+			'entryId',
+			'urlTitle',
+			'channelId',
+			'channel',
+			'categoryId',
+			'categoryUrlTitle',
+			'categoryGroupId',
+			'notStatus',
+			'status',
+			'showFutureEntries',
+			'showExpiredEntries'
+		));
 
-			ee()->db->where_in('CT.entry_id', $entryId);
-		}
+		$timestamp = $getEntry->get();
 
-		// If there's a channel id, specify that
-		if ($channelId) {
-			$channelId = explode('|', $channelId);
-
-			ee()->db->where_in('CT.channel_id', $channelId);
-		}
-
-		if ($categoryId) {
-			$categoryId = explode('|', $categoryId);
-
-			ee()->db->join('category_posts CP', 'CT.entry_id = CP.entry_id')
-				->where_in('CP.cat_id', $categoryId);
-		}
-
-		// Get the query
-		$query = ee()->db->get()->row();
-
-		if (! $query) {
+		if (! $timestamp) {
 			return false;
 		}
 
 		// Format the formatted date
-		$this->return_data = ee()->localize->format_date(
-			$format,
-			$query->edit_date
-		);
+		$this->return_data = ee()->localize->format_date($format, $timestamp);
 	}
 }

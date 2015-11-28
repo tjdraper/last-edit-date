@@ -6,6 +6,6 @@ return array(
 	'description' => 'Get the last edit date of an entry or channel',
 	'docs_url' => 'https://buzzingpixel.com/ee-add-ons/last-edit-date/documentation',
 	'name' => 'Last Edit Date',
-	'namespace' => 'BuzzingPixel\Addons\LastEditDate',
+	'namespace' => 'BuzzingPixel\LastEditDate',
 	'version' => '2.0.0'
 );
