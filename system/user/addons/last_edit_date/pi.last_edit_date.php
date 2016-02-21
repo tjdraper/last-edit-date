@@ -6,14 +6,19 @@
  * @package last_edit_date
  * @author TJ Draper <tj@buzzingpixel.com>
  * @link https://buzzingpixel.com/ee-add-ons/last-edit-date
- * @copyright Copyright (c) 2016, Buzzing Pixel
+ * @copyright Copyright (c) 2016, BuzzingPixel, LLC
  */
+
+use BuzzingPixel\LastEditDate\Controller\SingleTag;
 
 class Last_edit_date
 {
 	public function __construct()
 	{
-		var_dump('here');
-		die;
+		// Get the single tag controller
+		$singleTag = new SingleTag();
+
+		// Set the return data
+		$this->return_data = $singleTag->parse(ee()->TMPL->tagparams);
 	}
 }
